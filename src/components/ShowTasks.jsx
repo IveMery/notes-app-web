@@ -25,7 +25,9 @@ const ShowTasks = ({ setTasks }) => {
     }
     return card.title.toLowerCase().includes(search.trim().toLowerCase());
   });
-
+   
+  const noResults = search.trim() !== '' && filteredCards.length === 0;
+  
   const handleDelete = (id) => {
     // Filtrar la tarea a eliminar y actualizar el estado
     const updatedTasksDelete = storedTasks.filter(task => task.id !== id);
@@ -38,7 +40,8 @@ const ShowTasks = ({ setTasks }) => {
     <>
       <h1 className='text-center'>Mis notas</h1>
       <main className='d-flex flex-wrap'>
-        {filteredCards.map((task) => (
+      {noResults && <p>No se encontraron coincidencias.</p>} 
+        {!noResults && filteredCards.map((task) => (
           <div className="card m-3" key={task.id}>
             <div className="card-body">
               <h5 className="card-title text-center">{task.title}</h5>
